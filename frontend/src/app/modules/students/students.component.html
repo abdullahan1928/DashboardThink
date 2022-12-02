@@ -1,7 +1,10 @@
 <div>
 	Student List
-	<button routerLink="./new">Add New Student</button>
+	<button routerLink="/students/new">Add New Student</button>
 </div>
-<!-- [displayedColumns]="studentService.displayedColumns"
-	[data]="data" -->
-<app-table></app-table>
+
+<app-table [displayedColumns]="displayedColumns"
+	[dataSource]="dataSource"
+	[list]="studentList"
+>
+</app-table>

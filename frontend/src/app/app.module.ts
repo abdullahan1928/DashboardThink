@@ -10,11 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-  
+import { SharedModule } from './shared/shared.module';
+import { DetailsComponent } from './modules/details/details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-  ],  
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

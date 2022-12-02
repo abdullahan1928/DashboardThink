@@ -4,6 +4,7 @@ import { AuthGuard } from './guards/auth-guard/auth.guard';
 import { DashboardGuard } from './guards/dashboard-guard/dashboard.guard';
 import { DefaultComponent } from './layouts/default/default.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { DetailsComponent } from './modules/details/details.component';
 import { LoginComponent } from './modules/login/login.component';
 import { NewStudentComponent } from './modules/new-student/new-student.component';
 import { NewTaskComponent } from './modules/new-task/new-task.component';
@@ -12,11 +13,11 @@ import { StudentsComponent } from './modules/students/students.component';
 import { TasksComponent } from './modules/tasks/tasks.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: LoginComponent,
-  //   canActivate: [DashboardGuard],
-  // },
+  {
+    path: '',
+    component: LoginComponent,
+    // canActivate: [DashboardGuard],
+  },
   {
     path: '',
     component: DefaultComponent,
@@ -35,6 +36,14 @@ const routes: Routes = [
           },
           {
             path: 'new',
+            component: NewStudentComponent
+          },
+          {
+            path: 'view/:id',
+            component: DetailsComponent
+          },
+          {
+            path: 'edit/:id',
             component: NewStudentComponent
           }
         ]
@@ -57,10 +66,10 @@ const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: '**',
-  //   redirectTo: '',
-  // }
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+  }
 ];
 
 @NgModule({

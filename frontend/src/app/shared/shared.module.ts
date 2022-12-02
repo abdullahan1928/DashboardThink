@@ -36,6 +36,9 @@ import { StudentFormComponent } from './components/student-form/student-form.com
 import { MatSortModule } from '@angular/material/sort';
 import { AgGridModule } from 'ag-grid-angular';
 import { TaskFormComponent } from './components/task-form/task-form.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     TableComponent,
     StudentFormComponent,
     TaskFormComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +88,8 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     MatTabsModule,
     MatSortModule,
     AgGridModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   exports: [
     HeaderComponent,
@@ -97,6 +103,7 @@ import { TaskFormComponent } from './components/task-form/task-form.component';
     TableComponent,
     StudentFormComponent,
     TaskFormComponent,
+    ModalComponent
   ],
 })
 export class SharedModule { }

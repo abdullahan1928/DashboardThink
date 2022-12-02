@@ -107,6 +107,13 @@
                     cursor: pointer;
                 }
             }
+
+            .credentials-wrong{
+                color: red;
+                font-size: 0.8em;
+                font-weight: 500;
+                margin-top: 10px;
+            }
         }
     }
 }

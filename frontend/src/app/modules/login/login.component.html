@@ -41,6 +41,9 @@
 			>
 				Login
 			</button>
+			<div *ngIf="!loginService.isAdminLoggedIn" class="credentials-wrong">
+				Credentials are wrong
+			</div>
 		</div>
 	</form>
 </div>

@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login/login.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(public loginService: LoginService, public route: Router) {}
+  constructor(public loginService: LoginService, public route: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,8 +25,9 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     if (this.loginService.isAdminLoggedIn) {
       return true;
+    } else {
+      this.route.navigate(['/']);
+      return false;
     }
-    this.route.navigate(['/']);
-    return false;
   }
 }

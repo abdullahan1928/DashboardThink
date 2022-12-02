@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DefaultComponent } from './default.component';
 import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
@@ -27,6 +27,9 @@ import { SettingsComponent } from 'src/app/modules/settings/settings.component';
 import { LoginService } from 'src/app/services/login/login.service';
 import { NewStudentComponent } from 'src/app/modules/new-student/new-student.component';
 import { NewTaskComponent } from 'src/app/modules/new-task/new-task.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DetailsComponent } from 'src/app/modules/details/details.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { NewTaskComponent } from 'src/app/modules/new-task/new-task.component';
     TasksComponent,
     SettingsComponent,
     NewStudentComponent,
-    NewTaskComponent
+    NewTaskComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +62,9 @@ import { NewTaskComponent } from 'src/app/modules/new-task/new-task.component';
     MatInputModule,
     HttpClientModule,
     MatTabsModule,
+    MatSortModule,
+    MatDialogModule
   ],
-  providers: [DashboardService, LoginService],
+  providers: [DashboardService, LoginService, DatePipe],
 })
 export class DefaultModule { }

@@ -4,35 +4,68 @@
 		mat-table
 		matSort
 	>
+		<ng-container *ngFor="let column of displayedColumns"
+			[matColumnDef]="column"
 		>
-		<div *ngFor="let column of studentService.displayedColumns">
-			<ng-container [matColumnDef]="column">
-				<th *matHeaderCellDef
-					mat-header-cell
-					mat-sort-header
-					sortActionDescription="Sort by column"
-				>
-					{{column}}
-				</th>
-				<td *matCellDef="let element"
-					mat-cell
-				>
-					{{element[column]}}
-				</td>
-			</ng-container>
-		</div>
+			<th *matHeaderCellDef
+				mat-header-cell
+				mat-sort-header
+				sortActionDescription="Sort by {{column}}"
+				class="text-center"
+			>
+				{{column}}
+			</th>
+
+
+
+			<td *matCellDef="let element"
+				mat-cell
+			>
+				<ng-container *ngIf="column !== 'actions' && column!=='admissionDate'">{{element[column]}}</ng-container>
+
+
+
+				<ng-container *ngIf="column ==='admissionDate'">
+					{{element['admissionDate'] | date:'dd/MM/yyyy'}}
+				</ng-container>
+
+
+
+				<ng-container *ngIf="column==='actions'">
+					<div class="cellAction">
+						<div (click)="view(element)"
+							class="viewButton"
+						>
+							View
+						</div>
+						<div (click)="edit(element)"
+							class="editButton"
+						>
+							Edit
+						</div>
+						<div (click)="delete(element)"
+							class="deleteButton"
+						>
+							Delete
+						</div>
+					</div>
+				</ng-container>
+			</td>
+		</ng-container>
+
+
 
 		<tbody>
-			<tr *matHeaderRowDef="studentService.displayedColumns"
+			<tr *matHeaderRowDef="displayedColumns"
 				mat-header-row
-			></tr>
-			<tr *matRowDef="let row; columns: studentService.displayedColumns;"
+			>
+			</tr>
+			<tr *matRowDef="let row; columns: displayedColumns;"
 				mat-row
-			></tr>
+			>
+			</tr>
 		</tbody>
 	</table>
-
-
 
 
 

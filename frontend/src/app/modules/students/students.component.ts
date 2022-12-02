@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { IStudent } from 'src/app/models/StudentFormFields';
 import { StudentService } from 'src/app/services/student/student.service';
 
@@ -10,11 +11,7 @@ import { StudentService } from 'src/app/services/student/student.service';
 export class StudentsComponent {
   constructor(public studentService: StudentService) { }
 
-  data!: IStudent[] | any[];
-
-  ngOnInit() {
-    // this.studentService.getStudents().subscribe((data) => {
-    //   this.data = data as any;
-    // });
-  }
+  dataSource = new MatTableDataSource<IStudent>();
+  displayedColumns = this.studentService.displayedColumns;
+  studentList = this.studentService.getStudents();
 }

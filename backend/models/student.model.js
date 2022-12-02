@@ -5,6 +5,7 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        minlength: 3,
     },
     email: {
         type: String,
@@ -30,4 +31,6 @@ const StudentSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-module.exports = Student = mongoose.model("student", StudentSchema);
+Student = mongoose.model("student", StudentSchema);
+
+module.exports = Student; 

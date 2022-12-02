@@ -1,25 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StudentService } from 'src/app/services/student/student.service';
 import StudentFormFields from '../../../models/StudentFormFields';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
-  styleUrls: ['./student-form.component.scss']
+  styleUrls: ['./student-form.component.scss'],
 })
 export class StudentFormComponent implements OnInit {
-
-  constructor(public http: HttpClient) { }
+  constructor(
+    public http: HttpClient,
+    public route: Router,
+    public studentService: StudentService,
+    public activatedRoute: ActivatedRoute,
+    public snackBar: MatSnackBar
+  ) { }
 
   @Input() title: string = 'Form Title';
   @Input() subtitle: string = 'Form Subtitle';
+  @Input() btnTitle: string = 'Add Student';
 
   public studentForm!: FormGroup;
 
   studentFields = StudentFormFields;
 
-  ngOnInit(): void {
+  studentForum() {
     this.studentForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -39,7 +48,21 @@ export class StudentFormComponent implements OnInit {
         Validators.minLength(8),
         Validators.maxLength(20),
       ]),
-      date: new FormControl('', [Validators.required]),
+      admissionDate: new FormControl('', [Validators.required]),
+    });
+  }
+
+  ngOnInit(): void {
+    this.studentForum();
+    this.activatedRoute.params.subscribe((params) => {
+      console.log(params);
+      if (params['id']) {
+        this.btnTitle = 'Save Changes';
+        this.studentService.getStudent(params['id']).subscribe((res: any) => {
+          console.log(res.data);
+          this.studentForm.patchValue(res.data);
+        });
+      }
     });
   }
 
@@ -48,11 +71,28 @@ export class StudentFormComponent implements OnInit {
   };
 
   addStudent() {
-    this.http
-      .post('http://localhost:3000/student/list', this.studentForm.value)
-      .subscribe((res) => {
-        console.log(res);
-      });
+    this.activatedRoute.params.subscribe((params) => {
+      console.log(params);
+      if (params['id']) {
+        this.studentService.updateStudent(params['id'], this.studentForm.value).subscribe((res: any) => {
+          console.log(res);
+        });
+        this.snackBar.open('Student Updated Successfully', 'Close', {
+          duration: 2000,
+        });
+      }
+      else {
+        this.studentService.newStudent(this.studentForm.value).subscribe((res: any) => {
+          console.log(res);
+        });
+        this.snackBar.open('Student Added Successfully', 'Close', {
+          duration: 2000,
+        });
+      }
+    });
+    // this.studentService.newStudent(this.studentForm.value).subscribe((res) => {
+    //   console.log(res);
+    // });
+    this.route.navigate(['/students']);
   }
-
 }
